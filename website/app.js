@@ -1,23 +1,34 @@
 /* Global Variables */
 const apiKey = '7743c0da8ed6533b23d63c005660ad8c';
-const CompleteURL = "api.openweathermap.org/data/2.5/forecast?lat=35&lon=139&appid=743c0da8ed6533b23d63c005660ad8c";
-
+const baseURL = "http://api.openweathermap.org/data/2.5/weather?appid=";
+const generateBtn = document.querySelector("#generate");
+let userText
 
 /*fetch data from open weather api*/
 
-async function getWeather() {
+   async function getWeather(zip) {
     
-     const myPromise = await fetch(CompleteURL);
-    
-     const myData = await myPromise.json();
-     let finalData = myData.list;
-    
-     console.log(finalData)
-    
-   }
+        const myPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ zip);    
+        const myData = await myPromise.json();  
+        let temp = myData.main.temp;  
+        console.log(temp)
+   
+      }
 
    
-document.addEventListener("click", getWeather)
+generateBtn.addEventListener("click", function(){
+    userText = document.querySelector("#feelings").value
+   
+    if (userText.length ===0){
+        postData("/", {feeling: "No feeling" })
+        
+    }else {
+        postData("/", {feeling: `${userText}` })
+        }
+   
+    getWeather(85001)
+
+})
 
 
 
@@ -45,6 +56,7 @@ const postData = async (url="", data = {}) => {
     }
 
 }
+
 
 
 
