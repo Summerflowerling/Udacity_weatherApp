@@ -47,7 +47,7 @@ app.get('/test', function (req, res) {
 //post method route
 
 let receivedData =[]
-app.post('/', function(req, res){
+app.post('/add', function(req, res){
     let data = req.body
     res.send("received!")
     console.log(receivedData.push(data))

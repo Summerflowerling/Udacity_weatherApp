@@ -20,10 +20,10 @@ generateBtn.addEventListener("click", function(){
     userText = document.querySelector("#feelings").value
    
     if (userText.length ===0){
-        postData("/", {feeling: "No feeling" })
+        postData("/add", {feeling: "No feeling" })
         
     }else {
-        postData("/", {feeling: `${userText}` })
+        postData("/add", {feeling: `${userText}` })
         }
    
     getWeather(85001)
