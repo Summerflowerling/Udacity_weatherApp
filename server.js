@@ -1,5 +1,5 @@
 // Setup empty JS object to act as endpoint for all routes
-projectData = {};
+let projectData = {};
 
 // Require Express to run server and routes
 const express = require('express')
@@ -16,6 +16,7 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+
 // Cors for cross origin allowance
 const cors = require("cors")
 app.use(cors())
@@ -26,7 +27,6 @@ app.use(express.static('website'));
 
 
 // Setup Server
-
 const port = 8080;
 const server = app.listen(port, listening)
 //The listening argument refers to a callback function we create.
@@ -36,21 +36,26 @@ function listening(){
 
 
 //get method route
-/*
-app.get('/test', function (req, res) {
+
+app.get('/getData', function (req, res) {
     console.log(res)
   res.send(projectData)
 })
-*/
+
 
 
 //post method route
 
-let receivedData =[]
-app.post('/add', function(req, res){
+
+app.post('/', function(req, res){
     let data = req.body
     res.send("received!")
-    console.log(receivedData.push(data))
-
+    projectData=
+    {
+        date: data.date,
+        temp: data.temp,
+        feeling:data.feeling
+    } 
+    
 })
 

@@ -2,7 +2,12 @@
 const apiKey = '7743c0da8ed6533b23d63c005660ad8c';
 const baseURL = "http://api.openweathermap.org/data/2.5/weather?appid=";
 const generateBtn = document.querySelector("#generate");
+const dateArea = document.querySelector("#date");
+const tempArea = document.querySelector("#temp");
+const contentArea = document.querySelector("#content");
 let userText
+let zip
+let temp
 
 /*fetch data from open weather api*/
 
@@ -10,26 +15,12 @@ let userText
     
         const myPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ zip);    
         const myData = await myPromise.json();  
-        let temp = myData.main.temp;  
-        console.log(temp)
+        console.log(myData)
+        temp = myData.main.temp;  
+        return temp;
+        
    
       }
-
-   
-generateBtn.addEventListener("click", function(){
-    userText = document.querySelector("#feelings").value
-   
-    if (userText.length ===0){
-        postData("/add", {feeling: "No feeling" })
-        
-    }else {
-        postData("/add", {feeling: `${userText}` })
-        }
-   
-    getWeather(85001)
-
-})
-
 
 
 /*post request*/
@@ -51,12 +42,43 @@ const postData = async (url="", data = {}) => {
         const newData = await response.json()
         console.log("This is new data", newData)
         return newData
+
     } catch(error){
         console.log("Something wrong", error)
     }
 
 }
 
+
+generateBtn.addEventListener("click", function(){
+    userText = document.querySelector("#feelings").value
+    zip = document.querySelector("#zip").value
+    getWeather(zip).then((data)=>{
+        
+        if (userText.length ===0){
+            postData("/", {body:{date:newDate, temp:data, feeling: "No feeling" }})
+            
+        }else {
+            postData("/", {body:{date:newDate, temp:data,feeling: `${userText}` }})
+            }
+    })
+    .then((getPostedData)=>{
+        return getPostedData.json()
+    })
+    .then((finalData)=>{
+        console.log(finalData)
+    })
+
+})
+
+/*Get the data from user imput*/
+/*async function getUserInput() {
+    
+    const userInput = await fetch("");    
+    const myData = await userInput.json();  
+    console.log("This is user input",myData)
+  }
+*/
 
 
 
