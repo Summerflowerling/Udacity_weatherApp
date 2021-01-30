@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather Journal</title>
     <link
       href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap"
@@ -27,7 +28,10 @@
         ></textarea>
         <button id="generate" type="submit">Generate</button>
       </div>
-      <div class="holder entry">
+      <div id="entryHistory" class="entryHistory"></div>
+
+      <div class="holder entry modal" id="entryArea">
+        <span id="close" class="close">&times;</span>
         <div class="title">Most Recent Entry</div>
         <div id="entryHolder">
           <div id="date"></div>

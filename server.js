@@ -49,13 +49,12 @@ app.get('/getData', function (req, res) {
 
 app.post('/', function(req, res){
     let data = req.body
-    res.send("received!")
     projectData=
     {
         date: data.date,
         temp: data.temp,
         feeling:data.feeling
     } 
-    
+    res.send(projectData)
 })
 
