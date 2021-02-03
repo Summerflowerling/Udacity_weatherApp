@@ -53,7 +53,9 @@ app.post('/', function(req, res){
     {
         date: data.date,
         temp: data.temp,
-        feeling:data.feeling
+        feeling:data.feeling,
+        zip: data.zip,
+        icon:data.icon
     } 
     res.send(projectData)
 })

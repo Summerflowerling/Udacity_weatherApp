@@ -78,6 +78,7 @@ body {
 /* New Div added after the generateBtn*/
 .entryHistory {
   width: 80%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   margin: 1em auto 0;
@@ -182,12 +183,4 @@ button:focus {
   /* Microsoft Edge */
   color: #f0d43a;
   font-family: "Oswald", sans-serif;
-}
-
-@media (min-width: 375) {
-  .entryHistory {
-    width: 40%;
-    display: flex;
-    margin: 1em auto 0;
-  }
 }

@@ -17,17 +17,20 @@ let storedValue = []
 
 /*fetch data from open weather api*/
 
-   async function getWeather(zip) {
+   async function getWeather(zip, input) {
     
         const myPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ zip);    
-        const myData = await myPromise.json();  
-        console.log(myData)
-        temp = myData.main.temp;  
-        icon = myData.weather[0].icon
-        dataFromOpenWeather.push(temp,icon)
-        return (dataFromOpenWeather)
         
-   
+        try{const myData = await myPromise.json();  
+            temp = myData.main.temp;  
+            icon = myData.weather[0].icon
+            dataFromOpenWeather.push(temp,icon, zip, input)
+            return (dataFromOpenWeather)}
+        catch(error){
+            alert("Please enter America zip code")
+            return;
+        }
+
       }
 
 
@@ -44,40 +47,18 @@ const postData = async (url="", data = {}) => {
        
 
     });
-    console.log(data)
+   
      
     try{
         const newData = await response.json()
-        console.log("This is new data", newData)
         return newData
 
     } catch(error){
-        console.log("Something wrong", error)
+    
+       console.log("Something went wrong",error)
     }
 
 }
-
-
-generateBtn.addEventListener("click", function(){
-    
-    getWeather(zip.value).then((data)=>{
-        console.log("getWeatherThen", data)
-        if (feelingArea.value.length ===0){
-            return postData("/", {date:newDate, temp:data, feeling: "No feeling" })
-        
-            
-            
-        }else {
-           return  postData("/", {date:newDate, temp:data,feeling: `${feelingArea.value}` })
-            }
-    })
-    .then((getdata)=>{
-        storedData = [zip.value, getdata.temp, getdata.feeling, getdata.date]
-        updateUi(getdata)
-        console.log("sotredData in GET", storedData)
-    })
-
-})
 
 function updateUi(data){
     
@@ -88,7 +69,7 @@ function updateUi(data){
         <p>${data.date}</p>
         `
         tempArea.innerHTML = `
-        <p>Temperature: ${dataFromOpenWeather[0]}</p>
+        <p>Temperature: ${data.temp}</p>
         `
 
         contentArea.innerHTML = `
@@ -96,9 +77,48 @@ function updateUi(data){
         `
     entryArea.style.display="block"
     closeSign.style.display="block"
-    console.log("storedData In Update UI", storedData)
 
 }
+
+
+generateBtn.addEventListener("click", function(){
+    
+        if(zip.value.length !=5){
+       return (alert("Please enter America zip code"))
+    }
+    getWeather(zip.value, feelingArea.value).then((data)=>{
+        
+        if (data[3].length ===0){
+           
+            return postData("/", {date:newDate, temp:data[0], feeling: "No feeling", zip:data[2], icon:data[1] })
+        
+            
+        }else {
+           
+           return  postData("/", {date:newDate, temp:data[0],feeling: data[3],zip:data[2], icon:data[1] })
+            }
+    })
+   .then(
+    fetch("http://localhost:8080/getData").then(function(response) {
+        const myData = response.json()
+        return myData
+       })
+       .then((data)=>{
+           console.log(data)
+         if(data.temp === undefined)return
+         storedData = [zip.value, data.temp, data.feeling, data.date]
+               updateUi(data)
+             })
+         .catch((err)=>{
+             console.log(err)
+         })
+ 
+   )
+        
+})
+
+
+
 
 closeSign.addEventListener("click", function(){
     closeSign.style.display = "none";
@@ -109,9 +129,9 @@ closeSign.addEventListener("click", function(){
         newElement.innerHTML = `
         <img class="entryHistory-content-icon" src = "http://openweathermap.org/img/wn/${dataFromOpenWeather[1]}.png"/>
         <h5 class="entryHistory-content-title">Your Weather Journal on ${storedData[3]}</h5>
-        <p class="entryHistory-content-zip">zip: ${storedData[0]}<p>    
+        <p class="entryHistory-content-zip">zip: ${dataFromOpenWeather[2]}<p>    
         <p class="entryHistory-content-temp">temp:  ${dataFromOpenWeather[0]}</p>
-        <p class="entryHistory-content-feeling">feeling: ${storedData[2]}</p>
+        <p class="entryHistory-content-feeling">feeling: ${dataFromOpenWeather[3]}</p>
         `
         document.querySelector("#entryHistory").appendChild(newElement);
         dataFromOpenWeather=[];
