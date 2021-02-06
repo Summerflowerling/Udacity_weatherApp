@@ -61,6 +61,7 @@ const postData = async (url="", data = {}) => {
 }
 
 function updateUi(data){
+    console.log("data inside updateUi", data)
     
     zip.value=``;
     feelingArea.value=``;
@@ -98,7 +99,7 @@ generateBtn.addEventListener("click", function(){
            return  postData("/", {date:newDate, temp:data[0],feeling: data[3],zip:data[2], icon:data[1] })
             }
     })
-   .then(
+   .then(()=>
     fetch("http://localhost:8080/getData").then(function(response) {
         const myData = response.json()
         return myData
@@ -107,8 +108,9 @@ generateBtn.addEventListener("click", function(){
            console.log(data)
          if(data.temp === undefined)return
          storedData = [zip.value, data.temp, data.feeling, data.date]
-               updateUi(data)
+         updateUi(data)
              })
+             
          .catch((err)=>{
              console.log(err)
          })
