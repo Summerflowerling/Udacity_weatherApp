@@ -1,5 +1,7 @@
-// Setup empty JS object to act as endpoint for all routes
+
 let projectData = {};
+
+const fetch = require('node-fetch')
 
 // Require Express to run server and routes
 const express = require('express')
@@ -22,12 +24,11 @@ const cors = require("cors")
 app.use(cors())
 
 // Initialize the main project folder
-//this is to connect the server side code with the client side`website`
 app.use(express.static('website'));
 
 
 // Setup Server
-const port = 8080;
+const port = 8088;
 const server = app.listen(port, listening)
 //The listening argument refers to a callback function we create.
 function listening(){
