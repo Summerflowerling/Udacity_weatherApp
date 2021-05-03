@@ -1,4 +1,5 @@
 
+
 let projectData = {};
 
 const fetch = require('node-fetch')
@@ -28,7 +29,7 @@ app.use(express.static('website'));
 
 
 // Setup Server
-const port = 8088;
+const port = 8080;
 const server = app.listen(port, listening)
 //The listening argument refers to a callback function we create.
 function listening(){
