@@ -2,6 +2,9 @@
 
 let projectData = {};
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const fetch = require('node-fetch')
 
 // Require Express to run server and routes
@@ -29,11 +32,12 @@ app.use(express.static('website'));
 
 
 // Setup Server
-const port = 8080;
+const port = 8083;
 const server = app.listen(port, listening)
 //The listening argument refers to a callback function we create.
 function listening(){
     console.log(`running on localhost: ${port}`)
+    console.log(`You api key is ${process.env.MY_KEY}`)
 }
 
 

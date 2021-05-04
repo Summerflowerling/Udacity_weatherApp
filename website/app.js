@@ -1,6 +1,5 @@
 
 /* Global Variables */
-const apiKey = '7743c0da8ed6533b23d63c005660ad8c';
 const baseURL = "http://api.openweathermap.org/data/2.5/weather?appid=";
 const generateBtn = document.querySelector("#generate");
 const dateArea = document.querySelector("#date");
@@ -14,6 +13,10 @@ let temp
 let icon
 let dataFromOpenWeather=[]
 let storedValue = []
+
+
+//const apiKey = process.env.MY_KEY
+const apiKey = process.env.MY_KEY;
 
 /*fetch data from open weather api*/
 
