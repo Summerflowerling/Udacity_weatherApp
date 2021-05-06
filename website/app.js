@@ -15,11 +15,13 @@ let dataFromOpenWeather=[]
 let storedValue = []
 
 
-//const apiKey = process.env.MY_KEY
-const apiKey = process.env.MY_KEY;
+/*Note: require doesn't exit in client side, need to use webpack*/
+
+
 
 /*fetch data from open weather api*/
 
+/*
    async function getWeather(zip, input) {
     
         const myPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ zip);    
@@ -35,10 +37,10 @@ const apiKey = process.env.MY_KEY;
         }
 
       }
-
+*/
 
 /*post request*/
-const postData = async (url="", data = {}) => {
+const postData =  async (url="", data = {}) => {
    
     const response = await fetch(url, {
         method: 'POST', 
@@ -49,18 +51,16 @@ const postData = async (url="", data = {}) => {
         body: JSON.stringify(data),
        
 
-    });
+    })
+
+    .then(res=> res.json())
+    .then(json=>{
+        storedValue = json
+        
+    })
    
      
-    try{
-        const newData = await response.json()
-        console.log(newData)
-        return newData
-
-    } catch(error){
     
-       console.log("Something went wrong",error)
-    }
 
 }
 
@@ -85,7 +85,17 @@ function updateUi(data){
 
 }
 
+generateBtn.addEventListener("click",  async function(){
+    if(zip.value.length !=5){
+        return (alert("Please enter America zip code"))
+     }
 
+     postData("/", {"zip":zip.value, "feeling":feelingArea.value})
+     try
+
+})
+
+/*
 generateBtn.addEventListener("click", function(){
     
         if(zip.value.length !=5){
@@ -123,9 +133,9 @@ generateBtn.addEventListener("click", function(){
         
 })
 
+*/
 
-
-
+/*
 closeSign.addEventListener("click", function(){
     closeSign.style.display = "none";
     entryArea.style.display="none";
@@ -144,7 +154,7 @@ closeSign.addEventListener("click", function(){
 
 })
 
-
+*/
 
 
 // Create a new date instance dynamically with JS

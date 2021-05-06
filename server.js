@@ -1,9 +1,11 @@
 
 
 let projectData = {};
+const baseURL = "http://api.openweathermap.org/data/2.5/weather?appid=";
 
 const dotenv = require('dotenv');
 dotenv.config();
+const apiKey = process.env.MY_KEY
 
 const fetch = require('node-fetch')
 
@@ -41,28 +43,25 @@ function listening(){
 }
 
 
-//get method route
-
-app.get('/getData', function (req, res) {
-    console.log(res)
-  res.send(projectData)
-})
-
 
 
 //post method route
-
-
 app.post('/', function(req, res){
     let data = req.body
     projectData=
     {
-        date: data.date,
-        temp: data.temp,
         feeling:data.feeling,
-        zip: data.zip,
-        icon:data.icon
+        zip: data.zip, 
     } 
+    console.log("post request",projectData)
     res.send(projectData)
+})
+
+//get method route
+
+app.get(`${baseURL}`, async function (req, res) {
+
+    console.log(res)
+  res.send(projectData)
 })
 
