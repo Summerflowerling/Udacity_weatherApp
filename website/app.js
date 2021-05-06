@@ -11,33 +11,22 @@ let entryArea = document.querySelector("#entryArea")
 let closeSign = document.querySelector(".close")
 let temp
 let icon
-let dataFromOpenWeather=[]
+let dataFromOpenWeather
 let storedValue = []
+// Create a new date instance dynamically with JS
+let d = new Date();
+let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+
 
 
 /*Note: require doesn't exit in client side, need to use webpack*/
 
 
 
-/*fetch data from open weather api*/
 
-/*
-   async function getWeather(zip, input) {
     
-        const myPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ zip);    
-        
-        try{const myData = await myPromise.json();  
-            temp = myData.main.temp;  
-            icon = myData.weather[0].icon
-            dataFromOpenWeather.push(temp,icon, zip, input)
-            return (dataFromOpenWeather)}
-        catch(error){
-            alert("Please enter America zip code")
-            return;
-        }
+    
 
-      }
-*/
 
 /*post request*/
 const postData =  async (url="", data = {}) => {
@@ -64,24 +53,46 @@ const postData =  async (url="", data = {}) => {
 
 }
 
-function updateUi(data){
-    console.log("data inside updateUi", data)
+/*fetch data from open weather api*/
+
+    async function getWeather() {
+        const weatherCall = await fetch("/getWeather");  
+         try{
+             const finalWeatherData = await weatherCall.json()
+             updateUi(finalWeatherData)
+             dataFromOpenWeather = finalWeatherData
+             console.log("Weather call in client",dataFromOpenWeather)
+
+         }
+         catch(err){
+            console.log("Something wrong when fetching the data", err)
+         }
+       
+     }
+     
+
+function updateUi(apiData){
+    const {temp, feels_like} =apiData.main
+    const cityName = apiData.name
+    //const {id, main, description, icon } = data.weather
+    console.log("data inside updateUi", apiData)
     
-    zip.value=``;
-    feelingArea.value=``;
+    
     
     dateArea.innerHTML = `
-        <p>${data.date}</p>
+        <p>${apiData.date}</p>
         `
         tempArea.innerHTML = `
-        <p>Temperature: ${data.temp}</p>
+        <p>Temperature: ${temp}</p>
         `
 
         contentArea.innerHTML = `
-        <p>You are feeling ${data.feeling}</p>
+        <p>It feels like: ${feels_like}</p>
+        <p>Note for today: ${feelingArea.value} </p>
         `
     entryArea.style.display="block"
     closeSign.style.display="block"
+    
 
 }
 
@@ -91,9 +102,19 @@ generateBtn.addEventListener("click",  async function(){
      }
 
      postData("/", {"zip":zip.value, "feeling":feelingArea.value})
-     try
+     try{
 
-})
+        getWeather()
+     }
+     catch(err){
+         console.log("Oopse, something is wring", err)
+     }
+
+     
+
+        
+
+    })
 
 /*
 generateBtn.addEventListener("click", function(){
@@ -135,7 +156,7 @@ generateBtn.addEventListener("click", function(){
 
 */
 
-/*
+
 closeSign.addEventListener("click", function(){
     closeSign.style.display = "none";
     entryArea.style.display="none";
@@ -143,23 +164,21 @@ closeSign.addEventListener("click", function(){
         const newElement = document.createElement('div');
         newElement.classList.add("entryHistory-content")
         newElement.innerHTML = `
-        <img class="entryHistory-content-icon" src = "http://openweathermap.org/img/wn/${dataFromOpenWeather[1]}.png"/>
-        <h5 class="entryHistory-content-title">Your Weather Journal on ${storedData[3]}</h5>
-        <p class="entryHistory-content-zip">zip: ${dataFromOpenWeather[2]}<p>    
-        <p class="entryHistory-content-temp">temp:  ${dataFromOpenWeather[0]}</p>
-        <p class="entryHistory-content-feeling">feeling: ${dataFromOpenWeather[3]}</p>
+        <img class="entryHistory-content-icon" src = "http://openweathermap.org/img/wn/${dataFromOpenWeather.weather[0].icon}.png"/>
+        <h5 class="entryHistory-content-title">Your Weather Journal on ${newDate}</h5>
+        <p class="entryHistory-content-zip">zip: ${zip.value}<p>    
+        <p class="entryHistory-content-temp">temp:  ${dataFromOpenWeather.main.temp}</p>
+        <p class="entryHistory-content-feeling">Your feeling note: ${feelingArea.value}</p>
         `
         document.querySelector("#entryHistory").appendChild(newElement);
         dataFromOpenWeather=[];
+        zip.value=``;
+        feelingArea.value=``;
 
 })
 
-*/
 
 
-// Create a new date instance dynamically with JS
-let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
 

@@ -43,8 +43,6 @@ function listening(){
 }
 
 
-
-
 //post method route
 app.post('/', function(req, res){
     let data = req.body
@@ -59,9 +57,21 @@ app.post('/', function(req, res){
 
 //get method route
 
-app.get(`${baseURL}`, async function (req, res) {
+app.get("/getWeather", async function (req, res) {
+    const weatherPromise = await fetch(baseURL + apiKey + "&units=metric&zip="+ projectData.zip);    
+    console.log("Get route response", res)
+  
 
-    console.log(res)
-  res.send(projectData)
+    try{
+        const weatherData = await weatherPromise.json()
+        console.log("This is weather Data", weatherData)
+        res.send(weatherData)
+    }
+    catch(error){
+        console.log("You have en error", error)
+    }
+
+    
 })
 
+/**Should I use GET request or fetch*/
