@@ -74,4 +74,3 @@ app.get("/getWeather", async function (req, res) {
     
 })
 
-/**Should I use GET request or fetch*/

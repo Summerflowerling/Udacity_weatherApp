@@ -24,8 +24,8 @@ let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
 /*post request*/
-const postData =  async (url="", data = {}) => {
-   
+const postData =  async (url="", data = {}) => {  
+
     const response = await fetch(url, {
         method: 'POST', 
         credentials: 'same-origin',
@@ -65,18 +65,13 @@ const postData =  async (url="", data = {}) => {
 function updateUi(apiData){
     const {temp, feels_like} =apiData.main
     const cityName = apiData.name
-    //const {id, main, description, icon } = data.weather
-    console.log("data inside updateUi", apiData)
-    
-    
-    
+    console.log("data inside updateUi", apiData)   
     dateArea.innerHTML = `
         <p>${newDate}</p>
         `
         tempArea.innerHTML = `
         <p>Temperature: ${temp}</p>
         `
-
         contentArea.innerHTML = `
         <p>It feels like: ${feels_like}</p>
         <p>Note for today: ${feelingArea.value} </p>
@@ -84,7 +79,6 @@ function updateUi(apiData){
     entryArea.style.display="block"
     closeSign.style.display="block"
     
-
 }
 
 generateBtn.addEventListener("click",  async function(){
@@ -100,52 +94,9 @@ generateBtn.addEventListener("click",  async function(){
      catch(err){
          console.log("Oopse, something is wring", err)
      }
-
-     
-
         
-
     })
 
-/*
-generateBtn.addEventListener("click", function(){
-    
-        if(zip.value.length !=5){
-       return (alert("Please enter America zip code"))
-    }
-    getWeather(zip.value, feelingArea.value).then((data)=>{
-        
-        if (data[3].length ===0){
-           
-            return postData("/", {date:newDate, temp:data[0], feeling: "No feeling", zip:data[2], icon:data[1] })
-        
-            
-        }else {
-           
-           return  postData("/", {date:newDate, temp:data[0],feeling: data[3],zip:data[2], icon:data[1] })
-            }
-    })
-   .then(()=>
-    fetch("http://localhost:8080/getData").then(function(response) {
-        const myData = response.json()
-        return myData
-       })
-       .then((data)=>{
-           console.log(data)
-         if(data.temp === undefined)return
-         storedData = [zip.value, data.temp, data.feeling, data.date]
-         updateUi(data)
-             })
-             
-         .catch((err)=>{
-             console.log(err)
-         })
- 
-   )
-        
-})
-
-*/
 
 
 closeSign.addEventListener("click", function(){
@@ -165,7 +116,6 @@ closeSign.addEventListener("click", function(){
         dataFromOpenWeather=[];
         zip.value=``;
         feelingArea.value=``;
-
 })
 
 
