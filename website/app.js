@@ -15,17 +15,12 @@ let dataFromOpenWeather
 let storedValue = []
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 
 
 /*Note: require doesn't exit in client side, need to use webpack*/
 
-
-
-
-    
-    
 
 
 /*post request*/
@@ -39,7 +34,6 @@ const postData =  async (url="", data = {}) => {
         },
         body: JSON.stringify(data),
        
-
     })
 
     .then(res=> res.json())
@@ -47,9 +41,6 @@ const postData =  async (url="", data = {}) => {
         storedValue = json
         
     })
-   
-     
-    
 
 }
 
@@ -80,7 +71,7 @@ function updateUi(apiData){
     
     
     dateArea.innerHTML = `
-        <p>${apiData.date}</p>
+        <p>${newDate}</p>
         `
         tempArea.innerHTML = `
         <p>Temperature: ${temp}</p>
