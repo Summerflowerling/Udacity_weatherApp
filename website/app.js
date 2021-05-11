@@ -57,6 +57,7 @@ const postData =  async (url="", data = {}) => {
          }
          catch(err){
             console.log("Something wrong when fetching the data", err)
+            //TODO: Add message for client if the call fail
          }
        
      }
