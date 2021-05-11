@@ -14,11 +14,18 @@
     <div id="app">
       <div class="holder headline">Weather Journal App</div>
       <div class="holder zip">
-        <label for="zip">Enter Zipcode here</label>
-        <input type="text" id="zip" placeholder="enter zip code here" />
+        <label class="inputLabel" for="zip">Enter Zipcode here</label>
+        <input
+          class="myInput"
+          type="text"
+          id="zip"
+          placeholder="enter zip code here"
+        />
       </div>
       <div class="holder feel">
-        <label for="feelings">How are you feeling today?</label>
+        <label class="inputLabel" for="feelings"
+          >How are you feeling today?</label
+        >
         <textarea
           class="myInput"
           id="feelings"
@@ -26,8 +33,8 @@
           rows="9"
           cols="50"
         ></textarea>
-        <button id="generate" type="submit">Generate</button>
       </div>
+      <button class="formBtn" id="generate" type="submit">Generate</button>
       <div id="entryHistory" class="entryHistory"></div>
 
       <!--Modal-->
