@@ -1,7 +1,12 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Oswald", sans-serif;
   height: 100vh;
+}
+
+#app,
+.entryHistory-content {
+  border-radius: 20px;
 }
 
 #app {
@@ -17,10 +22,9 @@ body {
     rgba(238, 174, 202, 1) 0%,
     rgba(148, 187, 233, 1) 100%
   );
+
   font-size: 1.5rem;
-  font-family: "Oswald", sans-serif;
   margin: 3em auto;
-  border-radius: 20px;
 }
 
 /* Form section*/
@@ -40,20 +44,24 @@ body {
 
 ::placeholder,
 .inputLabel {
-  color: rgb(1, 22, 107);
+  color: rgb(35, 66, 92);
 }
 
 .formBtn {
-  height: 5vh;
+  height: 2em;
   width: 5em;
   margin: 1em auto;
   justify-content: center;
   background: rgba(91, 170, 235, 0.397);
   color: rgb(250, 248, 246);
-  font-size: 26px;
+  font-size: 1.5rem;
   font-family: "Oswald", sans-serif;
+  box-shadow: 2px 4px 5px rgb(94, 92, 92);
   border: none;
-  box-shadow: 2px 4px 5px #444;
+}
+
+.formBtn:hover {
+  cursor: pointer;
 }
 
 /*modal*/
@@ -74,14 +82,13 @@ body {
   right: 10%;
   top: 8%;
   font-size: 50px;
-  color: #f0d43a;
   transition: 0.3s;
   display: none;
   cursor: pointer;
 }
 
 #entryHolder {
-  background-color: #be8089;
+  background-color: rgba(91, 170, 235, 0.89);
   text-align: center;
   padding: 0.5em;
 }
@@ -120,12 +127,18 @@ body {
     "zip zip temp temp "
     "feeling feeling feeling feeling";
   grid-row: auto;
-  background-color: #8f6369;
   text-align: center;
   margin: 0 auto;
   margin-bottom: 1.5em;
   width: 100%;
   height: 40vh;
+  background: rgb(205, 222, 241);
+  background: radial-gradient(
+    circle,
+    rgb(240, 212, 204) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  color: rgba(21, 46, 66, 0.932);
 }
 
 .entryHistory-content-title {
@@ -149,46 +162,16 @@ body {
   margin: 0 auto;
 }
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
-/*
-label {
-  display: block;
-  font-size: 27px;
+.entryHistory-content-title,
+.entryHistory-content-feeling,
+.entryHistory-content-zip,
+.entryHistory-content-temp {
+  padding: 0 1em;
+  font-size: 1rem;
+  color: rgb(35, 66, 92);
 }
 
-input {
-  display: block;
-  height: 60px;
-  width: 90%;
-  background: #22b2da;
-  color: #f0d43a;
-  font-size: 1.2rem;
-  font-family: "Oswald", sans-serif;
-  border: none;
-}
-
-button {
-  height: 20vh;
-  background: #3b4a6b;
-  color: #f0d43a;
-  font-size: 26px;
-  font-family: "Oswald", sans-serif;
-  border: none;
-  box-shadow: 2px 4px 5px #444;
-}
-h1 {
-  font-size: 36px;
-}
-
-textarea {
-  background: #a9e7f8;
-  color: #f0d43a;
-  font-size: 20px;
-  font-family: "Oswald", sans-serif;
-}
-*/
 /* Reset style for HTML element on active to have no border*/
-
 input:focus,
 select:focus,
 textarea:focus,
@@ -196,4 +179,20 @@ button:focus {
   outline: none;
 }
 
-/* TODO: Change the style*/
+/*media query*/
+
+@media (min-width: 600px) {
+  .entryHistory-content-title,
+  .entryHistory-content-feeling,
+  .entryHistory-content-zip,
+  .entryHistory-content-temp {
+    padding: 0 1em;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 378px) {
+  .holder {
+    font-size: 1.3rem;
+  }
+}

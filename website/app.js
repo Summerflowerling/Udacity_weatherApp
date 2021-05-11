@@ -109,10 +109,10 @@ closeSign.addEventListener("click", function(){
         newElement.classList.add("entryHistory-content")
         newElement.innerHTML = `
         <img class="entryHistory-content-icon" src = "http://openweathermap.org/img/wn/${dataFromOpenWeather.weather[0].icon}.png"/>
-        <h5 class="entryHistory-content-title">Your Weather Journal on ${newDate}</h5>
-        <p class="entryHistory-content-zip">zip: ${zip.value}<p>    
-        <p class="entryHistory-content-temp">temp:  ${dataFromOpenWeather.main.temp}</p>
-        <p class="entryHistory-content-feeling">Your feeling note: ${feelingArea.value}</p>
+        <h5 class="entryHistory-content-title">Weather Journal on ${newDate}</h5>
+        <p class="entryHistory-content-zip">Zip: ${zip.value}<p>    
+        <p class="entryHistory-content-temp">Temp:  ${dataFromOpenWeather.main.temp}</p>
+        <p class="entryHistory-content-feeling">Feeling Note: ${feelingArea.value}</p>
         `
         document.querySelector("#entryHistory").appendChild(newElement);
         dataFromOpenWeather=[];
