@@ -1,9 +1,9 @@
-# Weather-Journal App Project
+# Weather Journal App
 
 ## Overview
 
-To create an asynchronous web app that uses Web API and user data to dynamically update the UI.
-This project only works with American zip code.
+1. To create an asynchronous web app that uses Web API and user data to dynamically update the UI.
+2. This project only works with American zip code.
 
 ## Instructions
 
