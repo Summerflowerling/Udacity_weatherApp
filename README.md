@@ -2,7 +2,7 @@
 
 ## Overview
 
-1. To create an asynchronous web app that uses Web API and user data to dynamically update the UI.
+1.To create an asynchronous web app that uses a Web API and user data to dynamically update the UI.
 2. This project only works with American zip code.
 
 ## Instructions
